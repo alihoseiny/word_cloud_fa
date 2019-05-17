@@ -1,5 +1,7 @@
 # WordCloudFa
 ![](https://github.com/alihoseiny/word_cloud_fa/raw/master/Examples/masked-example.png)
+
+
 This module is a easy-to-use wrapper for [word_cloud module](https://github.com/amueller/word_cloud)
 Original module don't support Farsi Texts. But by using **WordCloudFa** you can generate word clouds from persian texts
 all texts those have Persian and English words.
