@@ -1,4 +1,4 @@
-from WordCloudFa import WordCloudFa
+from wordcloud_fa import WordCloudFa
 
 wodcloud = WordCloudFa(persian_normalize=True, include_numbers=False)
 text = ""

@@ -1,0 +1,1 @@
+from wordcloud_fa.WordCloudFa import WordCloudFa
