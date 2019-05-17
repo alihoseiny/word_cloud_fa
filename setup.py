@@ -3,7 +3,7 @@ from distutils.core import setup
 setup(
     name='wordcloud_fa',
     packages=['wordcloud_fa'],
-    version='0.1',
+    version='0.1.1',
     license='MIT',
     description='A wrapper for wordcloud module for creating persian word cloud.',
     author='Mohammadreza Alihoseiny',
@@ -16,5 +16,6 @@ setup(
         'python-bidi',
         'wordcloud',
         'hazm'
-    ]
+    ],
+    package_data={'wordcloud_fa': ['stopwords', 'Fonts/font.ttf']},
 )
