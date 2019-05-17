@@ -9,7 +9,7 @@ from re import sub
 
 FILE = dirname(__file__)
 STOPWORDS = set(map(str.strip, open(join(FILE, 'stopwords')).readlines()))
-FONT_PATH = environ.get('FONT_PATH', join(FILE, 'font.ttf'))
+FONT_PATH = environ.get('FONT_PATH', join(FILE, 'Fonts', 'font.ttf'))
 
 
 class WordCloudFa(WordCloud):
@@ -36,6 +36,12 @@ class WordCloudFa(WordCloud):
 
     @staticmethod
     def reshape_words(words: Iterable) -> List[str]:
+        """
+        We first join all words together as a string, then reshape them and finally split them, because it's faster than
+        reshaping each word separately.
+        :param words:
+        :return:
+        """
         combined_words = "".join(x + "\n" for x in words)
         return get_display(arabic_reshaper.reshape(combined_words)).split("\n")[1:]
 
@@ -55,8 +61,6 @@ class WordCloudFa(WordCloud):
         words: List[str] = list(frequencies.keys())
         values: List[float] = list(frequencies.values())
         stopwords: Set[str] = set([i.lower() for i in self.stopwords])
-        print(stopwords)
-        print('پدر' in stopwords)
         combined_words = "".join(x + "\n" for x in words if x not in stopwords)
         reshaped_words: List[str] = get_display(arabic_reshaper.reshape(combined_words)).split("\n")
         new_frequencies = dict(zip(reshaped_words, values))
