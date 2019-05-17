@@ -25,7 +25,7 @@ To save the wordcloud into a file, `matplotlib` can also be installed.
 # How to Use
 For creating word cloud of a text, first you should import the class into your code:
 
-`from WordCloudFa import WordCloudFa`
+`from wordcloud_fa import WordCloudFa`
 
 you can create an instance of this class like:
 
