@@ -9,7 +9,9 @@ all texts those have Persian and English words.
 This module is not just a wrapper and adds some features to the original module.
 
 # How to Install
-For installing this module, you can simply run `pip install word-cloud-fa`.
+For installing this module, you can simply run 
+
+`pip install wordcloud-fa`.
 
 This module tested on `python 3`
 
