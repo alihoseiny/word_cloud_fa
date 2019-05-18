@@ -82,6 +82,11 @@ You can see [Example codes in the Examples directory](https://github.com/alihose
 ![](https://github.com/alihoseiny/word_cloud_fa/raw/master/Examples/mixed-example.png)
 ![](https://github.com/alihoseiny/word_cloud_fa/raw/master/Examples/persian-example.png)
 
+# Font
+Default font is an unknown! font that supports both Persian and English letters. So you don't need to pass a font for 
+getting results. But if you want to change the font you can pass `font_path` parameter.
+
+
 # Contribution
 We want to keep this library fresh and useful for all Iranian developers. So we need your help for adding new features, fixing bugs and adding more documents.
 
@@ -94,3 +99,7 @@ You are wondering how you can contribute in this project? Here is a list of what
 
 # There is any problem?
 If you have questions, find some bugs or need some features, you can open an issue and tell us. For some strange reasons this is not possible? so contact me by this email: `salam@alihoseiny.ir`.
+
+# Citations
+Texts in the `Example` directory are from [this](https://fa.wikipedia.org/wiki/%D8%A7%DB%8C%D8%B1%D8%A7%D9%86) and 
+[this](https://en.wikipedia.org/wiki/Iran) Wikipedia pages.
