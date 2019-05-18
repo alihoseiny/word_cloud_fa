@@ -1,4 +1,8 @@
 # WordCloudFa
+![](https://img.shields.io/pypi/dm/wordcloud-fa.svg?style=for-the-badge)
+![](https://img.shields.io/pypi/v/wordcloud-fa.svg?style=for-the-badge)
+
+
 ![](https://github.com/alihoseiny/word_cloud_fa/raw/master/Examples/masked-example.png)
 
 
