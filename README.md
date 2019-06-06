@@ -1,4 +1,3 @@
-
 # WordCloudFa
 ![](https://img.shields.io/pypi/dm/wordcloud-fa.svg?style=for-the-badge)
 ![](https://img.shields.io/pypi/v/wordcloud-fa.svg?style=for-the-badge)
@@ -12,6 +11,24 @@ The original module doesn't support Farsi Texts. But by using **WordCloudFa** yo
 all texts those have Persian and English words.
 
 This module is not just a wrapper and adds some features to the original module.
+
+<!-- toc -->
+
+- [How to Install](#how-to-install)
+- [How to Use](#how-to-use)
+  * [Generating Word Cloud from Text](#generating-word-cloud-from-text)
+  * [Generating Word Cloud from Frequencies](#generating-word-cloud-from-frequencies)
+  * [Working with Stopwords](#working-with-stopwords)
+  * [Mask Image](#mask-image)
+  * [Reshaping words](#reshaping-words)
+- [Examples](#examples)
+- [Font](#font)
+- [Persian Tutorial](#persian-tutorial)
+- [Contribution](#contribution)
+- [There is any problem?](#there-is-any-problem)
+- [Citations](#citations)
+
+<!-- tocstop -->
 
 # How to Install
 For installing this module, you can simply run 
@@ -168,6 +185,9 @@ You can see [Example codes in the Examples directory](https://github.com/alihose
 The default font is an unknown! font that supports both Persian and English letters. So you don't need to pass a font for 
 getting results. But if you want to change the font you can pass `font_path` parameter.
 
+# Persian Tutorial
+If you want to read a brief tutorial about how to use this package in Farsi (Persian), you can 
+[click on this link](https://blog.alihoseiny.ir/%da%86%da%af%d9%88%d9%86%d9%87-%d8%a8%d8%a7-%d9%be%d8%a7%db%8c%d8%aa%d9%88%d9%86-%d8%a7%d8%a8%d8%b1-%da%a9%d9%84%d9%85%d8%a7%d8%aa-%d9%81%d8%a7%d8%b1%d8%b3%db%8c-%d8%a8%d8%b3%d8%a7%d8%b2%db%8c%d9%85%d8%9f/?utm_source=github&utm_medium=readme&utm_campaign=wordcloudfa).
 
 # Contribution
 We want to keep this library fresh and useful for all Iranian developers. So we need your help for adding new features, fixing bugs and adding more documents.
