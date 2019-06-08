@@ -6,11 +6,12 @@
 ![](https://github.com/alihoseiny/word_cloud_fa/raw/master/Examples/masked-example.png)
 
 
-This module is an easy-to-use wrapper for [word_cloud module](https://github.com/amueller/word_cloud)
-The original module doesn't support Farsi Texts. But by using **WordCloudFa** you can generate word clouds from persian texts
-all texts those have Persian and English words.
+This module is an easy-to-use wrapper for [word_cloud module](https://github.com/amueller/word_cloud).
 
-This module is not just a wrapper and adds some features to the original module.
+The original module doesn't support Farsi Texts. But by using **WordCloudFa** you can generate word clouds from 
+texts those are including Persian and English words.
+
+This module is not only a wrapper, but it adds some features to the original module.
 
 <!-- toc -->
 
