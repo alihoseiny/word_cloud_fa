@@ -1,6 +1,6 @@
 # WordCloudFa
-![](https://img.shields.io/pypi/dm/wordcloud-fa.svg?style=for-the-badge)
-![](https://img.shields.io/pypi/v/wordcloud-fa.svg?style=for-the-badge)
+[![Downloads](https://pepy.tech/badge/wordcloud-fa)](https://pepy.tech/project/wordcloud-fa)
+![](https://img.shields.io/pypi/v/wordcloud-fa.svg?style=popout)
 
 
 ![](https://github.com/alihoseiny/word_cloud_fa/raw/master/Examples/masked-example.png)
