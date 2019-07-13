@@ -8,7 +8,7 @@ from hazm import Normalizer
 from re import sub
 
 FILE = dirname(__file__)
-STOPWORDS = set(map(str.strip, open(join(FILE, 'stopwords')).readlines()))
+STOPWORDS = set(map(str.strip, open(join(FILE, 'stopwords'), encoding="utf8").readlines()))
 FONT_PATH = environ.get('FONT_PATH', join(FILE, 'Fonts', 'font.ttf'))
 
 
