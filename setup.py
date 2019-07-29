@@ -8,9 +8,9 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 setup(
     name='wordcloud_fa',
     packages=['wordcloud_fa'],
-    version='0.1.3',
+    version='0.1.4',
     license='MIT',
-    description='A wrapper for wordcloud module for creating persian word cloud.',
+    description='A wrapper for wordcloud module for creating persian (and other rtl languages) word cloud.',
     long_description=long_description,
     long_description_content_type='text/markdown',
     author='Mohammadreza Alihoseiny',

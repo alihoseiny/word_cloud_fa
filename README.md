@@ -132,6 +132,17 @@ wc = WordCloudFa()
 wc.add_stop_words(['کلمه‌ی اول', 'کلمه‌ی دوم'])
 ``` 
 
+Also you can add stopwords from a file. That file should include stopwords and each word should be in a separate line.
+
+For that, you should use `add_stop_words_from_file` method. The only parameter of this 
+
+method is relative or absolute path to the stop words file.
+
+```python
+wc = WordCloudFa()
+wc.add_stop_words_from_file("stopwords.txt")
+```
+
 ## Mask Image
 
 You can mask the final word cloud by an image. For example, the first image of this document is a wordcloud masked by an image 

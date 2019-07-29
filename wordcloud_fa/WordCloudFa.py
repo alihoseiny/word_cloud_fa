@@ -1,14 +1,17 @@
 from typing import List, Set, Iterable, Dict
 from arabic_reshaper import arabic_reshaper
 from bidi.algorithm import get_display
-from wordcloud import WordCloud
+from wordcloud import WordCloud, STOPWORDS
 from os.path import dirname, join
 from os import environ
 from hazm import Normalizer
-from re import sub
+import re
+from sys import version
+
+from wordcloud.tokenization import unigrams_and_bigrams, process_tokens
 
 FILE = dirname(__file__)
-STOPWORDS = set(map(str.strip, open(join(FILE, 'stopwords'), encoding="utf8").readlines()))
+STOPWORDS.update(map(str.strip, open(join(FILE, 'stopwords'), encoding="utf8").readlines()))
 FONT_PATH = environ.get('FONT_PATH', join(FILE, 'Fonts', 'font.ttf'))
 
 
@@ -50,7 +53,7 @@ class WordCloudFa(WordCloud):
                          colormap, normalize_plurals, contour_width,
                          contour_color, repeat)
         self.font_path = font_path if font_path is not None else FONT_PATH
-        self.stopwords = stopwords if stopwords is not None else STOPWORDS
+        self.stopwords: set = set(stopwords) if stopwords is not None else STOPWORDS
         self.persian_normalize: bool = persian_normalize
         self.include_numbers = include_numbers
 
@@ -77,21 +80,44 @@ class WordCloudFa(WordCloud):
         for stop_word in stop_words:
             self.stopwords.add(stop_word)
 
-    def process_text(self, text):
+    def add_stop_words_from_file(self, file_path: str) -> None:
         """
+        Reads all words in the `file_path` and add them to the `stop_words` set.
+        You should place each stop word in a separate line in your file without empty line at the end
+        (Empty line may cause adding an empty string to the list of stop_words).
+        :param file_path: Relative or Absolute path to the file.
+        :return:
+        """
+        with open(file_path, 'r') as file:
+            self.add_stop_words([x.strip() for x in file.readlines()])
+
+    def process_text(self, text: str) -> Dict[str, int]:
+        """
+        Splits a long text into words.
         If `persian_normalize` attribute has been set to True, normalizes `text` with Hazm Normalizer.
         If `include_numbers` attribute has been set to False, removes all Persian, English and Arabic numbers from
         text`.
-        At the end returns result of `WordCloud.process_text` method.
-        :param text: str
-        :return:
+        :param text: The text we want to process
+        :return: a dictionary. keys are words and values are the frequencies.
         """
+        flags = (re.UNICODE if version < '3' and type(text) is unicode  # noqa: F821
+                 else 0)
+        regexp = self.regexp if self.regexp is not None else r"\w[\w']+"
+
         if self.persian_normalize:
             normalizer = Normalizer()
             text = normalizer.normalize(text)
         if not self.include_numbers:
-            text = sub(r"[0-9\u06F0-\u06F9\u0660-\u0669]", "", text)
-        return super().process_text(text)
+            text = re.sub(r"[0-9\u06F0-\u06F9\u0660-\u0669]", "", text)
+
+        words = re.findall(regexp, text, flags)
+
+        if self.collocations:
+            word_counts = unigrams_and_bigrams(words, self.normalize_plurals)
+        else:
+            word_counts, _ = process_tokens(words, self.normalize_plurals)
+
+        return word_counts
 
     def generate_from_frequencies(self, frequencies: Dict[str, float], max_font_size=None):
         """
