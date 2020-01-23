@@ -129,15 +129,17 @@ class WordCloudFa(WordCloud):
         :param max_font_size: same as WordCloud
         :return:
         """
-        words: List[str] = list(frequencies.keys())
-        values: List[float] = list(frequencies.values())
+        words: List[str] = []
+        values: List[float] = []
+
         stopwords: Set[str] = set([i.lower() for i in self.stopwords])
-        combined_words = "".join(x + "\n" for x in words if x not in stopwords)
-        if self.persian_normalize:
-            normalizer = Normalizer()
-            combined_words = normalizer.normalize(combined_words)
-        reshaped_words: List[str] = get_display(arabic_reshaper.reshape(combined_words)).split("\n")
-        new_frequencies = dict(zip(reshaped_words, values))
+
+        for word in frequencies.keys():
+            if word not in stopwords:
+                words.append(word)
+                values.append(frequencies.get(word))
+
+        new_frequencies = dict(zip(words, values))
         return super().generate_from_frequencies(new_frequencies, max_font_size)
 
     def generate(self, text):
@@ -146,6 +148,9 @@ class WordCloudFa(WordCloud):
         :param text:
         :return:
         """
+        if self.persian_normalize:
+            normalizer = Normalizer()
+            text = normalizer.normalize(text)
         return self.generate_from_text(text)
 
     def to_html(self):
