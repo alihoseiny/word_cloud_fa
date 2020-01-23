@@ -93,7 +93,8 @@ the second parameter is `include_numbers` that is not in the published original 
  for generating word cloud from a string, you can simply call `generate` method of you instance:
  
  ```python
-wodcloud = WordCloudFa(persian_normalize=True)wc = wodcloud.generate(text)
+wodcloud = WordCloudFa(persian_normalize=True)
+wc = wodcloud.generate(text)
 image = wc.to_image()
 image.show()
 image.save('wordcloud.png')
