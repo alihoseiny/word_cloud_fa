@@ -9,7 +9,7 @@
 This module is an easy-to-use wrapper for [word_cloud module](https://github.com/amueller/word_cloud).
 
 **Attention: It seems that you can use the original module now for creating wordclouds for Farsi with proper fonts.
- So you can use that module instead this one. But this module is steal useful if you are interested in its other features.
+ So you can use that module instead this one. But this module is still useful if you are interested in its other features.
  If you found problems in original module for creating Farsi modules, please notify me at the issues page for removing this warning.**
 
 The original module doesn't support Farsi Texts. But by using **WordCloudFa** you can generate word clouds from 
