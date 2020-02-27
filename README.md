@@ -36,7 +36,11 @@ This module is not only a wrapper, but it adds some features to the original mod
 <!-- tocstop -->
 
 # How to Install
-For installing this module, you can simply run 
+If you want to use this module on the Windows operating system, you SHOULD use following command for installation:
+
+`pip install wordcloud-fa==0.1.4`
+
+For installing this module on other operating systems, you can simply run 
 
 `pip install wordcloud-fa`.
 
