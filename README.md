@@ -8,10 +8,6 @@
 
 This module is an easy-to-use wrapper for [word_cloud module](https://github.com/amueller/word_cloud).
 
-**Attention: It seems that you can use the original module now for creating wordclouds for Farsi with proper fonts.
- So you can use that module instead this one. But this module is steal useful if you are interested in its other features.
- If you found problems in original module for creating Farsi modules, please notify me at the issues page for removing this warning.**
-
 The original module doesn't support Farsi Texts. But by using **WordCloudFa** you can generate word clouds from 
 texts those are including Persian and English words.
 
@@ -30,6 +26,10 @@ This module is not only a wrapper, but it adds some features to the original mod
 - [Font](#font)
 - [Persian Tutorial](#persian-tutorial)
 - [Contribution](#contribution)
+- [Common Problems](#Common-Problems)
+  * [Farsi Letters are separated](#Farsi-Letters-are-separated)
+  * [I See Repeated Farsi Words](#I-See-Repeated-Farsi-Words)
+  * [I Have Problem in Running Example Scripts](#I-Have-Problem-in-Running-Example-Scripts)
 - [There is any problem?](#there-is-any-problem)
 - [Citations](#citations)
 
@@ -73,7 +73,7 @@ you can create an instance of this class like:
 You can pass different parameters to the constructor. For see full documents of them, you can see 
 [WordCloud Documentations](https://amueller.github.io/word_cloud/) 
 
-There are two parameters that are not in the original class.
+There are three parameters that are not in the original class.
 
 First one is `persian_normalize`. If you pass this parameter with `True` value, your data will normalize by using 
 [Hazm normalizer](https://github.com/sobhe/hazm). It's recommended to always pass this parameter. That will replace 
@@ -84,14 +84,21 @@ The default value of this parameter is `False`.
 
 the second parameter is `include_numbers` that is not in the published original module. If you set this parameter to `False`,
  all Persian, Arabic and English numbers will remove from your data.
- 
+
  The default value of this parameter is `True`
- 
+
  `wodcloud = WordCloudFa(include_numbers=False)`
- 
+
+ **Common problem Hint:**
+
+ The last and very important parameter is: `no_reshape`. The default value of the parameter is `False`. But if you see 
+ that the letters of the words in Farsi texts are separated in your local system, you should pass `True` value to this parameter.
+ ```python
+wordcloud = WordCloudFa(no_reshape=True)
+ ```
  ## Generating Word Cloud from Text
  for generating word cloud from a string, you can simply call `generate` method of you instance:
- 
+
  ```python
 wodcloud = WordCloudFa(persian_normalize=True)
 wc = wodcloud.generate(text)
@@ -99,18 +106,18 @@ image = wc.to_image()
 image.show()
 image.save('wordcloud.png')
 
-``` 
+ ```
 
 ## Generating Word Cloud from Frequencies
 
 You can generate a word cloud from frequencies. You can use the output of `process_text` method as frequencies.
  Also you can use any dictionary like this.
- 
+
  ```python
 wodcloud = WordCloudFa()
 frequencies = wodcloud.process_text(text)
 wc = wodcloud.generate_from_frequencies(frequencies)
-``` 
+ ```
 
 `generate_from_frequencies` method in this module will exclude stopwords. But the original module will not exclude them 
 when you are using this method. Also you can use Persian words as keys in frequencies dict without any problem.
@@ -127,7 +134,7 @@ you are creating an instance from `WordCloudFa` and pass a `set` of words into i
 ```python
 stop_words = set(['کلمه‌ی اول', 'کلمه‌ی دوم'])
 wc = WordCloudFa(stopwords=stop_words)
-``` 
+```
 
 If you want to add additional words to the default stopwords, you can simply call `add_stop_words` method on your 
 instance of `WordCloudFa` and pass an iterable type (`list`, `set`, ...) into it.
@@ -135,7 +142,7 @@ instance of `WordCloudFa` and pass an iterable type (`list`, `set`, ...) into it
 ```python
 wc = WordCloudFa()
 wc.add_stop_words(['کلمه‌ی اول', 'کلمه‌ی دوم'])
-``` 
+```
 
 Also you can add stopwords from a file. That file should include stopwords and each word should be in a separate line.
 
@@ -216,10 +223,39 @@ You are wondering how you can contribute to this project? Here is a list of what
 3. Do you think one useful feature missed? You can open an issue and tell us about it.
 4. Did you find a good open and free font that supports Farsi and English? You can notify us by a pull request or if opening an issue
 
+# Common Problems
+
+## Farsi Letters are separated
+
+If you see separated Farsi letters in your output, you should pass `no_reshape=True` parameter to your `WordCoudFa` constructor:
+
+```python
+wodcloud = WordCloudFa(no_reshape=True)
+```
+
+
+
+## I See Repeated Farsi Words
+
+In some cases you may see repeated Farsi words in the output. For solving that problem, you should pass `collocations=False` Parameter to your `WordCloudFa` constructor:
+
+```python
+wodcloud = WordCloudFa(collocations=False)
+```
+
+## I Have Problem in Running Example Scripts
+
+In some operating systems like Windows, you should specify the encoding of the example text files. If you can not open example files, add `encoding="utf-8"` to your open statements:
+
+```python
+with open('persian-example.txt', 'r', encoding="utf-8") as file:
+```
+
+
+
 # There is any problem?
 If you have questions, find some bugs or need some features, you can open an issue and tell us. For some strange reasons this is not possible? so contact me by this email: `salam@alihoseiny.ir`.
 
 # Citations
-Texts in the `Example` directory are from [this](https://fa.wikipedia.org/wiki/%D8%A7%DB%8C%D8%B1%D8%A7%D9%86) and 
-[this](https://en.wikipedia.org/wiki/Iran) Wikipedia pages.
+Texts in the `Example` directory are from [this](https://fa.wikipedia.org/wiki/%D8%A7%DB%8C%D8%B1%D8%A7%D9%86) and [this](https://en.wikipedia.org/wiki/Iran) Wikipedia pages.
 

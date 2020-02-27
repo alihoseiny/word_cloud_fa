@@ -4,7 +4,7 @@ from bidi.algorithm import get_display
 from wordcloud import WordCloud, STOPWORDS
 from os.path import dirname, join
 from os import environ
-from hazm import Normalizer
+from hazm import Normalizer, word_tokenize
 import re
 from sys import version
 
@@ -33,7 +33,8 @@ class WordCloudFa(WordCloud):
                  max_font_size=None, font_step=1, mode="RGB",
                  relative_scaling='auto', regexp=None, collocations=True,
                  colormap=None, normalize_plurals=True, contour_width=0,
-                 contour_color='black', repeat=False, include_numbers=True, persian_normalize: bool = False):
+                 contour_color='black', repeat=False, include_numbers=True, persian_normalize: bool = False,
+                 no_reshape: bool = False):
         """
 
         :param font_path: Default value is the font file in the `Fonts` directory
@@ -43,6 +44,7 @@ class WordCloudFa(WordCloud):
         :param stopwords: An Iterable contains words you don't want to consider. If be None, default stopwords will
                           consider. You should add values to default words using `add_stop_words` method.
         :param include_numbers: if be True, all English, Persian and Arabic numbers will exclude from conting and showing
+        :param no_reshape: if be True, reversing Persian/Arabic words will disable.
         """
         super().__init__(font_path, width, height, margin,
                          ranks_only, prefer_horizontal, mask, scale,
@@ -56,6 +58,7 @@ class WordCloudFa(WordCloud):
         self.stopwords: set = set(stopwords) if stopwords is not None else STOPWORDS
         self.persian_normalize: bool = persian_normalize
         self.include_numbers = include_numbers
+        self.no_reshape: bool = no_reshape
 
     @staticmethod
     def reshape_words(words: Iterable) -> List[str]:
@@ -68,8 +71,21 @@ class WordCloudFa(WordCloud):
         :param words: an iterable including words
         :return: a ist of proper words for showing in the WordCloud
         """
-        combined_words = "".join(x + "\n" for x in words)
+        combined_words: str = "".join(x + "\n" for x in words)
         return get_display(arabic_reshaper.reshape(combined_words)).split("\n")
+
+    @staticmethod
+    def normalize_words(words: Iterable) -> List[str]:
+        """
+        This method gets an Iterable containing some Farsi words as elements, normalizes them using Hazm and then
+        returns a list of normalized words.
+        :param words: an iterable including words
+        :return: A list of normalized elements of the `words` iterable.
+        """
+        combined_words: str = "".join(x + "\n" for x in words)
+        normalizer: Normalizer = Normalizer()
+        normalized_combined_words: str = normalizer.normalize(combined_words)
+        return normalized_combined_words.split("\n")
 
     def add_stop_words(self, stop_words: Iterable) -> None:
         """
@@ -102,7 +118,6 @@ class WordCloudFa(WordCloud):
         """
         flags = (re.UNICODE if version < '3' and type(text) is unicode  # noqa: F821
                  else 0)
-        regexp = self.regexp if self.regexp is not None else r"\w[\w']+"
 
         if self.persian_normalize:
             normalizer = Normalizer()
@@ -110,7 +125,10 @@ class WordCloudFa(WordCloud):
         if not self.include_numbers:
             text = re.sub(r"[0-9\u06F0-\u06F9\u0660-\u0669]", "", text)
 
-        words = re.findall(regexp, text, flags)
+        if self.regexp:
+            words = re.findall(self.regexp, text, flags)
+        else:
+            words = word_tokenize(text)
 
         if self.collocations:
             word_counts = unigrams_and_bigrams(words, self.normalize_plurals)
@@ -139,6 +157,12 @@ class WordCloudFa(WordCloud):
                 words.append(word)
                 values.append(frequencies.get(word))
 
+        if not self.no_reshape:
+            words = WordCloudFa.reshape_words(words)
+
+        if self.persian_normalize:
+            words = WordCloudFa.normalize_words(words)
+
         new_frequencies = dict(zip(words, values))
         return super().generate_from_frequencies(new_frequencies, max_font_size)
 
@@ -148,9 +172,6 @@ class WordCloudFa(WordCloud):
         :param text:
         :return:
         """
-        if self.persian_normalize:
-            normalizer = Normalizer()
-            text = normalizer.normalize(text)
         return self.generate_from_text(text)
 
     def to_html(self):

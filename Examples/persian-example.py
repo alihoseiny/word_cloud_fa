@@ -1,6 +1,6 @@
 from wordcloud_fa import WordCloudFa
 
-wodcloud = WordCloudFa(persian_normalize=True)
+wodcloud = WordCloudFa(no_reshape=True, persian_normalize=True, include_numbers=False, collocations=False, width=800, height=400)
 text = ""
 with open('persian-example.txt', 'r') as file:
     text = file.read()

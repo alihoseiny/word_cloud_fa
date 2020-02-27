@@ -1,6 +1,6 @@
 from wordcloud_fa import WordCloudFa
 
-wodcloud = WordCloudFa(persian_normalize=True, include_numbers=False)
+wodcloud = WordCloudFa(include_numbers=False, regexp=r"\w[\w']+")
 text = ""
 with open('english-example.txt', 'r') as file:
     text = file.read()
