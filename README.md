@@ -69,7 +69,7 @@ For creating a word cloud from a text, first you should import the class into yo
 
 you can create an instance of this class like:
 
-`wodcloud = WordCloudFa()`
+`wordcloud = WordCloudFa()`
 
 You can pass different parameters to the constructor. For see full documents of them, you can see 
 [WordCloud Documentations](https://amueller.github.io/word_cloud/) 
@@ -81,14 +81,14 @@ First one is `persian_normalize`. If you pass this parameter with `True` value, 
 arabic letters with persian ones and do some other stuff.
 The default value of this parameter is `False`.
 
-`wodcloud = WordCloudFa(persian_normalize=True)`  
+`wordcloud = WordCloudFa(persian_normalize=True)`  
 
 the second parameter is `include_numbers` that is not in the published original module. If you set this parameter to `False`,
  all Persian, Arabic and English numbers will remove from your data.
 
  The default value of this parameter is `True`
 
- `wodcloud = WordCloudFa(include_numbers=False)`
+ `wordcloud = WordCloudFa(include_numbers=False)`
 
  **Common problem Hint:**
 
