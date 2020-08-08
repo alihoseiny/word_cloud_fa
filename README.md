@@ -36,9 +36,6 @@ This module is not only a wrapper, but it adds some features to the original mod
 <!-- tocstop -->
 
 # How to Install
-If you want to use this module on the Windows operating system, you SHOULD use following command for installation:
-
-`pip install wordcloud-fa==0.1.4`
 
 For installing this module on other operating systems, you can simply run 
 
@@ -72,7 +69,7 @@ For creating a word cloud from a text, first you should import the class into yo
 
 you can create an instance of this class like:
 
-`wodcloud = WordCloudFa()`
+`wordcloud = WordCloudFa()`
 
 You can pass different parameters to the constructor. For see full documents of them, you can see 
 [WordCloud Documentations](https://amueller.github.io/word_cloud/) 
@@ -84,14 +81,14 @@ First one is `persian_normalize`. If you pass this parameter with `True` value, 
 arabic letters with persian ones and do some other stuff.
 The default value of this parameter is `False`.
 
-`wodcloud = WordCloudFa(persian_normalize=True)`  
+`wordcloud = WordCloudFa(persian_normalize=True)`  
 
 the second parameter is `include_numbers` that is not in the published original module. If you set this parameter to `False`,
  all Persian, Arabic and English numbers will remove from your data.
 
  The default value of this parameter is `True`
 
- `wodcloud = WordCloudFa(include_numbers=False)`
+ `wordcloud = WordCloudFa(include_numbers=False)`
 
  **Common problem Hint:**
 
@@ -104,8 +101,8 @@ wordcloud = WordCloudFa(no_reshape=True)
  for generating word cloud from a string, you can simply call `generate` method of you instance:
 
  ```python
-wodcloud = WordCloudFa(persian_normalize=True)
-wc = wodcloud.generate(text)
+wordcloud = WordCloudFa(persian_normalize=True)
+wc = wordcloud.generate(text)
 image = wc.to_image()
 image.show()
 image.save('wordcloud.png')
@@ -118,9 +115,9 @@ You can generate a word cloud from frequencies. You can use the output of `proce
  Also you can use any dictionary like this.
 
  ```python
-wodcloud = WordCloudFa()
-frequencies = wodcloud.process_text(text)
-wc = wodcloud.generate_from_frequencies(frequencies)
+wordcloud = WordCloudFa()
+frequencies = wordcloud.process_text(text)
+wc = wordcloud.generate_from_frequencies(frequencies)
  ```
 
 `generate_from_frequencies` method in this module will exclude stopwords. But the original module will not exclude them 
@@ -182,7 +179,7 @@ installed as dependencies of this module.
 Then, you can pass that array to the constructor of the `WordCloudFa` class for masking the result.
 
 ```python
-wodcloud = WordCloudFa(mask=mask_array)
+wordcloud = WordCloudFa(mask=mask_array)
 ```
 
 Now you can use your worldcloud instance as before.
@@ -241,7 +238,7 @@ You are wondering how you can contribute to this project? Here is a list of what
 If you see separated Farsi letters in your output, you should pass `no_reshape=True` parameter to your `WordCoudFa` constructor:
 
 ```python
-wodcloud = WordCloudFa(no_reshape=True)
+wordcloud = WordCloudFa(no_reshape=True)
 ```
 
 
@@ -251,7 +248,7 @@ wodcloud = WordCloudFa(no_reshape=True)
 In some cases you may see repeated Farsi words in the output. For solving that problem, you should pass `collocations=False` Parameter to your `WordCloudFa` constructor:
 
 ```python
-wodcloud = WordCloudFa(collocations=False)
+wordcloud = WordCloudFa(collocations=False)
 ```
 
 ## I Have Problem in Running Example Scripts
