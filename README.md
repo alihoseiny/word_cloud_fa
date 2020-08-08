@@ -22,6 +22,7 @@ This module is not only a wrapper, but it adds some features to the original mod
   * [Working with Stopwords](#working-with-stopwords)
   * [Mask Image](#mask-image)
   * [Reshaping words](#reshaping-words)
+  * [Avoiding Dangerous non-ASCII characters](#Avoiding-Dangerous-non-ASCII-characters)
 - [Examples](#examples)
 - [Font](#font)
 - [Persian Tutorial](#persian-tutorial)
