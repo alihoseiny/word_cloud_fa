@@ -202,6 +202,13 @@ this method gets an `Iterable` as input and returns a list of reshaped words.
 
 **DONT FORGET THAT YOU SHOULD NOT PASS RESHAPED WORDS TO THE METHODS OF THIS CLASS AND THIS STATIC METHOD IS ONLY FOR USAGES OUT OF THIS MODULE**
 
+## Avoiding Dangerous non-ASCII characters
+Some non-ASCII characters like emojies causing errors. By Default, those characters will remove from the input text (not when you are using the `generate_from_frequencies` method).
+
+For disabling this feature, you can set the value of the `remove_unhandled_utf_characters` parameter to `False` when you are creating a new instance of the `WordCloudFa`.
+
+Also you can access the compiled regex patten of those characters using the `unhandled_characters_regex` class attribute.   
+
 # Examples
 You can see [Example codes in the Examples directory](https://github.com/alihoseiny/word_cloud_fa/tree/master/Examples).
 
@@ -254,8 +261,6 @@ In some operating systems like Windows, you should specify the encoding of the e
 ```python
 with open('persian-example.txt', 'r', encoding="utf-8") as file:
 ```
-
-
 
 # There is any problem?
 If you have questions, find some bugs or need some features, you can open an issue and tell us. For some strange reasons this is not possible? so contact me by this email: `salam@alihoseiny.ir`.

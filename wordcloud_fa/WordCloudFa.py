@@ -1,4 +1,4 @@
-from typing import List, Set, Iterable, Dict
+from typing import List, Set, Iterable, Dict, Pattern
 from arabic_reshaper import arabic_reshaper
 from bidi.algorithm import get_display
 from wordcloud import WordCloud, STOPWORDS
@@ -26,6 +26,19 @@ class WordCloudFa(WordCloud):
     https://github.com/sobhe/hazm
     If you don't pass stopwords, default stopwords in the `stopwords` file will consider.
     """
+
+    unhandled_characters_regex: Pattern[str] = re.compile("["
+                                                          u"\U0001F600-\U0001F64F"  # emoticons
+                                                          u"\U0001F300-\U0001F5FF"  # symbols & pictographs
+                                                          u"\U0001F680-\U0001F6FF"  # transport & map symbols
+                                                          u"\U0001F1E0-\U0001F1FF"  # flags (iOS)
+                                                          u"\U00002702-\U000027B0\U000024C2-\U0001F251"
+                                                          u"\U0001f926-\U0001f937\U00010000-\U0010ffff"
+                                                          u"\u200d\u2640-\u2642\u2600-\u2B55\u23cf"
+                                                          u"\u23e9\u231a\u3030\ufe0f\u2069\u2066"
+                                                          u"\u200c\u2068\u2067"
+                                                          u"]+", flags=re.UNICODE)
+
     def __init__(self, font_path=None, width=400, height=200, margin=2,
                  ranks_only=None, prefer_horizontal=.9, mask=None, scale=1,
                  color_func=None, max_words=200, min_font_size=4,
@@ -34,7 +47,7 @@ class WordCloudFa(WordCloud):
                  relative_scaling='auto', regexp=None, collocations=True,
                  colormap=None, normalize_plurals=True, contour_width=0,
                  contour_color='black', repeat=False, include_numbers=True, persian_normalize: bool = False,
-                 no_reshape: bool = False):
+                 no_reshape: bool = False, remove_unhandled_utf_characters: bool = True):
         """
 
         :param font_path: Default value is the font file in the `Fonts` directory
@@ -45,6 +58,7 @@ class WordCloudFa(WordCloud):
                           consider. You should add values to default words using `add_stop_words` method.
         :param include_numbers: if be True, all English, Persian and Arabic numbers will exclude from conting and showing
         :param no_reshape: if be True, reversing Persian/Arabic words will disable.
+        :param remove_unhandled_utf_characters: remove the characters those will create undefined behaviour (emoticons, symbols, pictographs, transport and map symbols, ios flags and ...).
         """
         super().__init__(font_path, width, height, margin,
                          ranks_only, prefer_horizontal, mask, scale,
@@ -59,6 +73,7 @@ class WordCloudFa(WordCloud):
         self.persian_normalize: bool = persian_normalize
         self.include_numbers = include_numbers
         self.no_reshape: bool = no_reshape
+        self.remove_unhandled_utf_characters: bool = remove_unhandled_utf_characters
 
     @staticmethod
     def reshape_words(words: Iterable) -> List[str]:
@@ -113,11 +128,15 @@ class WordCloudFa(WordCloud):
         If `persian_normalize` attribute has been set to True, normalizes `text` with Hazm Normalizer.
         If `include_numbers` attribute has been set to False, removes all Persian, English and Arabic numbers from
         text`.
+        Attention: this method will not remove stopwords from the input.
         :param text: The text we want to process
         :return: a dictionary. keys are words and values are the frequencies.
         """
         flags = (re.UNICODE if version < '3' and type(text) is unicode  # noqa: F821
                  else 0)
+
+        if self.remove_unhandled_utf_characters:
+            text = WordCloudFa.unhandled_characters_regex.sub(r'', text)
 
         if self.persian_normalize:
             normalizer = Normalizer()
@@ -131,7 +150,8 @@ class WordCloudFa(WordCloud):
             words = word_tokenize(text)
 
         if self.collocations:
-            word_counts = unigrams_and_bigrams(words, self.normalize_plurals)
+            # We remove stopwords in the WordCloudFa, so there is no need for passing them in this function.
+            word_counts = unigrams_and_bigrams(words, [], self.normalize_plurals, self.collocation_threshold)
         else:
             word_counts, _ = process_tokens(words, self.normalize_plurals)
 
@@ -141,8 +161,9 @@ class WordCloudFa(WordCloud):
         """
         Removes words those are in `stopwords` attribute. then reshape remaining words for make them proper for
         displaying as a wordcloud.
-        Attention: Behaviour of this method is diferrent from `WrodCloud.generate_from_frequencies` because that will not
+        Attention: Behaviour of this method is different from `WrodCloud.generate_from_frequencies` because that will not
         exclude the stopwords when you are using this method. But in this class, we exclude stopwords.
+        Attention: `remove_unhandled_utf_characters` option has no effect on this method and you should handle those characters by yourself.
         :param frequencies: a dictionary like: {'word1': 11, 'word2': 1}
         :param max_font_size: same as WordCloud
         :return:
