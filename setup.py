@@ -23,8 +23,7 @@ setup(
         'numpy>=1.18.1',
         'pillow>=7.0.0',
         'matplotlib>=3.1.2',
-        'arabic_reshaper',
-        'python-bidi>=0.4.2',
+        'arabic_reshaper>=2.1.3',
         'wordcloud==1.8.1',
         'hazm'
     ],

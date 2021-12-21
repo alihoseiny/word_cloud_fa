@@ -1,6 +1,5 @@
 from typing import List, Set, Iterable, Dict, Pattern
 from arabic_reshaper import arabic_reshaper
-from bidi.algorithm import get_display
 from wordcloud import WordCloud, STOPWORDS
 from os.path import dirname, join
 from os import environ
@@ -87,7 +86,7 @@ class WordCloudFa(WordCloud):
         :return: a ist of proper words for showing in the WordCloud
         """
         combined_words: str = "".join(x + "\n" for x in words)
-        return get_display(arabic_reshaper.reshape(combined_words)).split("\n")
+        return arabic_reshaper.reshape(combined_words).split("\n")
 
     @staticmethod
     def normalize_words(words: Iterable) -> List[str]:
