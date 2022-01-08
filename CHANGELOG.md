@@ -1,3 +1,5 @@
+# 0.1.9
+- Support for python 3.9.x added.
 # 0.1.6
 - Adding symbols to the stopwords file.
 - Adding `no_reshape` parameter for disabling reshaping words.
