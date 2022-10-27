@@ -6,7 +6,6 @@ with open('mixed-example.txt', 'r') as file:
     text = file.read()
 
 wc = wodcloud.generate(text)
-print(wc.process_text(text))
 image = wc.to_image()
 image.show()
 image.save('mixed-example.png')
