@@ -25,7 +25,7 @@ setup(
         'matplotlib>=3.1.2',
         'arabic_reshaper>=2.1.3',
         'python-bidi==0.4.2',
-        'wordcloud==1.8.1',
+        'wordcloud==1.8.2.2',
         'hazm',
     ],
     package_data={'wordcloud_fa': ['stopwords', 'Fonts/font.ttf']},
