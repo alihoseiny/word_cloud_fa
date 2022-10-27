@@ -8,7 +8,7 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 setup(
     name='wordcloud_fa',
     packages=['wordcloud_fa'],
-    version='0.1.9',
+    version='0.1.10',
     license='MIT',
     description='A wrapper for wordcloud module for creating persian (and other rtl languages) word cloud.',
     long_description=long_description,
@@ -16,7 +16,7 @@ setup(
     author='Mohammadreza Alihoseiny',
     author_email='salam@alihoseiny.ir',
     url='https://github.com/alihoseiny/word_cloud_fa',
-    download_url='https://github.com/alihoseiny/word_cloud_fa/archive/V0.1.9.tar.gz',
+    download_url='https://github.com/alihoseiny/word_cloud_fa/archive/V0.1.10.tar.gz',
     keywords=['wordcloud', 'word cloud', 'Farsi', 'persian', 'Iran', 'nlp', 'National Language Processing',
               'text processing', 'data visualization'],
     install_requires=[
@@ -26,7 +26,7 @@ setup(
         'arabic_reshaper>=2.1.3',
         'python-bidi==0.4.2',
         'wordcloud==1.8.2.2',
-        'hazm',
+        'hazm==0.7.0',
     ],
     package_data={'wordcloud_fa': ['stopwords', 'Fonts/font.ttf']},
 )

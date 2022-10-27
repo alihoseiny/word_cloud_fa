@@ -1,3 +1,5 @@
+# 0.1.10
+- Wordcloud version updated.
 # 0.1.9
 - Support for python 3.9.x added.
 # 0.1.6

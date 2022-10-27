@@ -1,9 +1,10 @@
 from wordcloud_fa import WordCloudFa
 
-wodcloud = WordCloudFa(persian_normalize=True, include_numbers=False, background_color="white")
-text = ""
+wodcloud = WordCloudFa(persian_normalize=True, include_numbers=False, background_color="white", stopwords={'[', ']', '[]', '] [', '[ ]', '] .', ')', '('}, no_reshape=True)
+
 with open('mixed-example.txt', 'r') as file:
     text = file.read()
+
 wc = wodcloud.generate(text)
 image = wc.to_image()
 image.show()
