@@ -26,7 +26,7 @@ setup(
         'arabic_reshaper>=2.1.3',
         'python-bidi==0.4.2',
         'wordcloud==1.8.2.2',
-        'hazm==0.7.0',
+        'hazm==0.9.3',
     ],
     package_data={'wordcloud_fa': ['stopwords', 'Fonts/font.ttf']},
 )
