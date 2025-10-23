@@ -24,7 +24,7 @@ setup(
         'pillow>=7.0.0',
         'matplotlib>=3.1.2',
         'arabic_reshaper>=2.1.3',
-        'python-bidi==0.6.6',
+        'python-bidi==0.6.7',
         'hazm==0.10.0',
         'wordcloud==1.9.4',
     ],
